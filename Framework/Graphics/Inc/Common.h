@@ -2,6 +2,7 @@
 
 // external libs
 #include <Core/Inc/Core.h>
+#include <Math/Inc/BMath.h>
 
 // Direct X11
 #include <d3d11_1.h>

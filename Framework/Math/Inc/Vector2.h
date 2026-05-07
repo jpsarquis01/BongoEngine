@@ -1,0 +1,37 @@
+#pragma once
+
+namespace BongoEngine::Math
+{
+	struct Vector2
+	{
+		// Union keeps the same memory for both the struct and the array,
+		//  allowing us to access the components in different ways without using more memory.
+		union
+		{
+			struct { float x, y; };
+			std::array<float, 2> v;
+		};
+
+		constexpr Vector2() noexcept : Vector2(0.0f) {}
+		explicit constexpr Vector2(float f) noexcept : Vector2(f, f) {}
+		constexpr Vector2(float x, float y) noexcept : x{ x }, y{ y } {}
+
+		// commonly used Vectors
+		const static Vector2 Zero;
+		const static Vector2 One;
+		const static Vector2 XAxis;
+		const static Vector2 YAxis;
+
+		constexpr Vector2 operator-() const { return { -x, -y }; }
+		constexpr Vector2 operator+(const Vector2& rhs) const { return { x + rhs.x, y + rhs.y }; }
+		constexpr Vector2 operator-(const Vector2& rhs) const { return { x - rhs.x, y - rhs.y }; }
+		constexpr Vector2 operator*(float s) const { return { x * s, y * s }; }
+		constexpr Vector2 operator/(float s) const { return { x / s, y / s }; }
+
+		constexpr Vector2& operator+=(const Vector2& rhs) { x += rhs.x; y += rhs.y; return *this; }
+		constexpr Vector2& operator-=(const Vector2& rhs) { x -= rhs.x; y -= rhs.y; return *this; }
+		constexpr Vector2& operator*=(float s) { x *= s; y *= s; return *this; }
+		constexpr Vector2& operator/=(float s) { x /= s; y /= s; return *this; }
+	};
+
+}

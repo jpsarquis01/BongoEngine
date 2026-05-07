@@ -5,6 +5,7 @@
 using namespace BongoEngine;
 using namespace BongoEngine::Core;
 using namespace BongoEngine::Input;
+using namespace BongoEngine::Graphics;
 
 void App::Run(const AppConfig& config)
 {
@@ -21,6 +22,9 @@ void App::Run(const AppConfig& config)
 
 	auto handle = myWindow.GetWindowHandle();
 	InputSystem::StaticInitialize(handle);
+	GraphicsSystem::StaticInitialize(handle, config.fullScreen);
+
+	GraphicsSystem::Get()->SetClearColor(Colors::Blue);
 
 	// After initializing singletones, initialize current state
 	ASSERT(mCurrentState != nullptr, "App: need app state to run");
@@ -58,11 +62,16 @@ void App::Run(const AppConfig& config)
 		mCurrentState->Update(deltaTime);
 
 		// render flow
+		GraphicsSystem* gs = GraphicsSystem::Get();
+		gs->BegginRender();
+		mCurrentState->Render();
+		gs->EndRender();
 	}
 	// terminate active state first
 	mCurrentState->Terminate();
 
 	// for all systems we build, terminate all sigletones
+	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
 
 	// Close the app

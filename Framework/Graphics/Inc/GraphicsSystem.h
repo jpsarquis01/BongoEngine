@@ -1,7 +1,8 @@
 #pragma once
 
+#include "Color.h"
 
-namespace BongoEngine
+namespace BongoEngine::Graphics
 {
 	class GraphicsSystem
 	{
@@ -31,9 +32,9 @@ namespace BongoEngine
 		void Resize(uint32_t width, uint32_t height);
 
 		void ResetRenderTarget();
-		void ResetViewpoer();
+		void ResetViewport();
 
-		// void SetClearColor();
+		void SetClearColor(const Color& color);
 		void SetVSync(bool vsync);
 
 		uint32_t GetBackBufferWidth() const;
@@ -58,7 +59,7 @@ namespace BongoEngine
 		DXGI_SWAP_CHAIN_DESC mSwapChainDesc {};
 		D3D11_VIEWPORT mViewport{};
 
-		// Color mClearColor = Colors::Black;
+		Color mClearColor = Colors::Black;
 		UINT mVSync = 1;
 	};
 }

@@ -1,0 +1,9 @@
+﻿  Precompiled.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
+  (compiling source file 'Src/Precompiled.cpp')
+  
+  GraphicsSystem.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\GraphicsSystem.cpp(118,109): warning C4244: 'argument': conversion from 'float' to 'UINT8', possible loss of data
+  (compiling source file '/Src/GraphicsSystem.cpp')
+  
+  Graphics.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\Graphics.lib
