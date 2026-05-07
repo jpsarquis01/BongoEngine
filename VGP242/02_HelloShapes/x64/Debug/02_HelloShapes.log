@@ -1,0 +1,6 @@
+﻿  ShapeStates.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
+  (compiling source file 'ShapeStates.cpp')
+  
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\VGP242\02_HelloShapes\ShapeStates.cpp(11,75): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data
+  02_HelloShapes.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\02_HelloShapes.exe

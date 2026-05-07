@@ -10,6 +10,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 
 	// need states
 	myApp.AddState<ShapesState>("ShapeState");
+	myApp.AddState<QuadState>("QuadState");
+	myApp.AddState<HouseState>("HouseState");
 	myApp.Run(config);
 
 	return 0;

@@ -3,7 +3,7 @@
 // define expected vertex data
 struct VS_INPUT
 {
-    float3 position : POSITIONT;
+    float3 position : POSITION;
 };
 
 // Output of vertes function that gets interpoated through the rasterizer and used in pixel function
@@ -21,7 +21,7 @@ VS_OUTPUT VS(VS_INPUT input)
 }
 
 // Pixel function, interpolated screen position of the pixel, what color it should be
-float4 PS(VS_OUTPUT input) : SV_Traget
+float4 PS(VS_OUTPUT input) : SV_Target
 {
     return float4(1, 1, 0, 1); // yellow
 }
