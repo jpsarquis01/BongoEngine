@@ -24,7 +24,7 @@ void App::Run(const AppConfig& config)
 	InputSystem::StaticInitialize(handle);
 	GraphicsSystem::StaticInitialize(handle, config.fullScreen);
 
-	GraphicsSystem::Get()->SetClearColor(Colors::Blue);
+	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	// After initializing singletones, initialize current state
 	ASSERT(mCurrentState != nullptr, "App: need app state to run");

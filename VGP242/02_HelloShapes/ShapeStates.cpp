@@ -27,7 +27,7 @@ void ShapesState::Update(float deltaTime)
 {
 	if (InputSystem::Get()->IsKeyPressed(KeyCode::UP))
 	{
-		MainApp().ChangeState("HouseState");
+		MainApp().ChangeState("CatState");
 	}
 }
 
@@ -58,6 +58,14 @@ void HouseState::Update(float deltaTime)
 	if (InputSystem::Get()->IsKeyPressed(KeyCode::DOWN))
 	{
 		MainApp().ChangeState("QuadState");
+	}
+}
+
+void CatState::Update(float deltaTime)
+{
+	if (InputSystem::Get()->IsKeyPressed(KeyCode::RIGHT))
+	{
+		MainApp().ChangeState("HouseState");
 	}
 }
 
@@ -93,3 +101,24 @@ void HouseState::CreateShape()
 	mVertices.push_back({ { 0.5f,  0.5f, 0.0f}, {BongoEngine::Graphics::Colors::Green } });
 }
 
+void CatState::CreateShape()
+{
+	// First Traingle
+																				
+	mVertices.push_back({ { 0.0f,  0.5f, 0.0f}, {BongoEngine::Graphics::Colors::Red} });
+	mVertices.push_back({ { 0.0f, -0.5f, 0.0f}, {BongoEngine::Graphics::Colors::Red} });
+	mVertices.push_back({ {-0.5f,  0.0f, 0.0f}, {BongoEngine::Graphics::Colors::Red } });
+
+	mVertices.push_back({ { 0.0f,  0.5f, 0.0f}, {BongoEngine::Graphics::Colors::Green} });
+	mVertices.push_back({ { 0.5f,  0.0f, 0.0f}, {BongoEngine::Graphics::Colors::Green } });
+	mVertices.push_back({ { 0.0f, -0.5f, 0.0f}, {BongoEngine::Graphics::Colors::Green} });
+
+	mVertices.push_back({ { 0.0f,  0.5f, 0.0f}, {BongoEngine::Graphics::Colors::Blue} });
+	mVertices.push_back({ { 0.5f,  1.0f, 0.0f}, {BongoEngine::Graphics::Colors::Blue} });
+	mVertices.push_back({ { 0.5f,  0.0f, 0.0f}, {BongoEngine::Graphics::Colors::Blue} });
+
+	mVertices.push_back({ { 0.0f,  0.5f, 0.0f}, {BongoEngine::Graphics::Colors::Blue} });
+	mVertices.push_back({ {-0.5f,  0.0f, 0.0f}, {BongoEngine::Graphics::Colors::Blue} });
+	mVertices.push_back({ {-0.5f,  1.0f, 0.0f}, {BongoEngine::Graphics::Colors::Blue} });
+																				
+}

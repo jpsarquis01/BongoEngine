@@ -53,3 +53,11 @@ public:
 protected:
 	void CreateShape() override;
 };
+
+class CatState : public ShapesState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};

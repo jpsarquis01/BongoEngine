@@ -30,12 +30,18 @@
     <ClInclude Include="Inc\Vector4.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\Matrix4.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Quaternion.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\BMnath.cpp">
+    <ClCompile Include="Src\BMath.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

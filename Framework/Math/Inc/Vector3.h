@@ -26,7 +26,7 @@ namespace BongoEngine::Math
 
 		constexpr Vector3 operator-() const { return { -x, -y, -z }; }
 		constexpr Vector3 operator+(const Vector3& rhs) const { return { x + rhs.x, y + rhs.y, z + rhs.z }; }
-		constexpr Vector3 operator-(const Vector3& rhs) const { return { x - rhs.x, y - rhs.y, z + rhs.z }; }
+		constexpr Vector3 operator-(const Vector3& rhs) const { return { x - rhs.x, y - rhs.y, z - rhs.z }; }
 		constexpr Vector3 operator*(float s) const { return { x * s, y * s, z * s }; }
 		constexpr Vector3 operator/(float s) const { return { x / s, y / s, z / s }; }
 
