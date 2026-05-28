@@ -23,6 +23,7 @@ void App::Run(const AppConfig& config)
 	auto handle = myWindow.GetWindowHandle();
 	InputSystem::StaticInitialize(handle);
 	GraphicsSystem::StaticInitialize(handle, config.fullScreen);
+	TextureManager::StaticInitialize(L"../../Assets/Textures");
 
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
@@ -73,6 +74,7 @@ void App::Run(const AppConfig& config)
 	// for all systems we build, terminate all sigletones
 	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
+	TextureManager::StaticTerminate();
 
 	// Close the app
 	myWindow.Terminate();
