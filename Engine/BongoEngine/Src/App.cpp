@@ -24,7 +24,8 @@ void App::Run(const AppConfig& config)
 	InputSystem::StaticInitialize(handle);
 	GraphicsSystem::StaticInitialize(handle, config.fullScreen);
 	TextureManager::StaticInitialize(L"../../Assets/Textures");
-
+	DebugUI::StaticInitialize(handle, false, true);
+	SimpleDraw::StaticsInitialize(config.maxVertexCount);
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
 
 	// After initializing singletones, initialize current state
@@ -66,6 +67,9 @@ void App::Run(const AppConfig& config)
 		GraphicsSystem* gs = GraphicsSystem::Get();
 		gs->BegginRender();
 		mCurrentState->Render();
+		DebugUI::BeginDraw();
+		mCurrentState->DebugUI();
+		DebugUI::EndDraw();
 		gs->EndRender();
 	}
 	// terminate active state first
@@ -75,6 +79,8 @@ void App::Run(const AppConfig& config)
 	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
 	TextureManager::StaticTerminate();
+	DebugUI::StaticTerminate();	
+
 
 	// Close the app
 	myWindow.Terminate();

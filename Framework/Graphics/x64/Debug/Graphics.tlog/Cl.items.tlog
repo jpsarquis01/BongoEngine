@@ -1,11 +1,13 @@
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\Camera.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\Camera.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\ConstantBuffer.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\ConstantBuffer.obj
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\DebugUI.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\DebugUI.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\GraphicsSystem.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\GraphicsSystem.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\MeshBuffer.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\MeshBuffer.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\MeshBuilder.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\MeshBuilder.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\PixelShader.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\PixelShader.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\Precompiled.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\Precompiled.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\Sampler.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\Sampler.obj
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\SimpleDraw.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\SimpleDraw.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\Texture.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\Texture.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\TextureManager.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\TextureManager.obj
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\VertexShader.cpp;C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\x64\Debug\VertexShader.obj

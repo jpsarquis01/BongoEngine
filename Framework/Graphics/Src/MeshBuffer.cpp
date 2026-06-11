@@ -23,6 +23,17 @@ void MeshBuffer::Terminate()
 	SafeRelease(mIndexBuffer);
 }
 
+void MeshBuffer::Update(const void* vertices, uint32_t vertexCount)
+{
+	mVertexCount = vertexCount;
+	auto context = GraphicsSystem::Get()->GetContext();
+
+	D3D11_MAPPED_SUBRESOURCE resourse;
+	context->Map(mVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &resourse);
+	memcpy(resourse.pData, vertices, (vertexCount * mVertexSize));
+	context->Unmap(mVertexBuffer, 0);
+}
+
 void MeshBuffer::SetTopology(Topology topology)
 {
 	switch (topology)
@@ -67,16 +78,20 @@ void MeshBuffer::CreateVertexBuffer(const void* vertices, uint32_t vertexSize, u
 
 	auto device = GraphicsSystem::Get()->GetDevice();
 
+	bool isDynamic = vertices == nullptr;
+
+	// create a buffer to store vertices (meshbuffer)
 	D3D11_BUFFER_DESC bufferDesc = {};
 	bufferDesc.ByteWidth = vertexSize * vertexCount;
-	bufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	bufferDesc.Usage = (isDynamic)? D3D11_USAGE_DYNAMIC : D3D11_USAGE_DEFAULT;
 	bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bufferDesc.MiscFlags = 0;
 	bufferDesc.StructureByteStride = 0;
+	bufferDesc.CPUAccessFlags = (isDynamic) ? D3D11_CPU_ACCESS_WRITE : 0;
 
 	D3D11_SUBRESOURCE_DATA initData = {};
 	initData.pSysMem = vertices;
-	HRESULT hr = device->CreateBuffer(&bufferDesc, &initData, &mVertexBuffer);
+	HRESULT hr = device->CreateBuffer(&bufferDesc, (isDynamic? nullptr : &initData), &mVertexBuffer);
 	ASSERT(SUCCEEDED(hr), "MeshBuffer: Failed to create vertex buffer");
 }
 
