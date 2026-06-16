@@ -13,5 +13,20 @@ public:
 private:
 	void UpdateCamera(float deltaTime);
 
+	BongoEngine::Graphics::TextureId mEarthTextureId;
+	BongoEngine::Graphics::TextureId mSunTextureId;
+	 
+	BongoEngine::Graphics::MeshBuffer mEarthMeshBuffer;
+	BongoEngine::Graphics::MeshBuffer mSunMeshBuffer;
+
+	float mEarthRotation = 0.0f;
+	float mEarthOrbitRotation = 0.0f;
+	float mEarthOrbitDistance = 0.0f;
+
+	BongoEngine::Graphics::VertexShader mVertexShader;
+	BongoEngine::Graphics::PixelShader mPixelShader;
+	BongoEngine::Graphics::Sampler mSampler;
+	 
 	BongoEngine::Graphics::Camera mCamera;
+	BongoEngine::Graphics::ConstantBuffer mConstantBuffer;
 };

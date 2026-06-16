@@ -8,110 +8,109 @@ void GameState::Initialize()
 {
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
+
+	// create shape
+	Graphics::MeshPX sun = MeshBuilder::CreateSpherePX(30, 30, 1.0f);
+	mSunMeshBuffer.Initialize(sun);
+
+	Graphics::MeshPX earth = MeshBuilder::CreateSpherePX(30, 30, 0.5f);
+	mEarthMeshBuffer.Initialize(earth);
+
+	std::filesystem::path shaderPath = L"../../Assets/Shaders/DoTexture.fx";
+	mVertexShader.Initialize<VertexPX>(shaderPath);
+	mPixelShader.Initialize(shaderPath);
+	mConstantBuffer.Initialize(sizeof(Math::Matrix4));
+
+	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
+
+	mEarthTextureId = TextureManager::Get()->LoadTexture("earth.jpg");
+	mSunTextureId = TextureManager::Get()->LoadTexture("planets/sun.jpg");
+
+	mEarthOrbitDistance = 4.0f;
 }
 
 void GameState::Terminate()
 {
+	TextureManager::Get()->ReleaseTexture(mSunTextureId);
+	TextureManager::Get()->ReleaseTexture(mEarthTextureId);
+	mSampler.Terminate();
+	mConstantBuffer.Terminate();
+	mPixelShader.Terminate();
+	mVertexShader.Terminate();
+	mEarthMeshBuffer.Terminate();
+	mSunMeshBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
 {
 	UpdateCamera(deltaTime);
+
+	// Rotate speed
+	const float earthRotationSpeed = 0.5f;
+	const float earthOrbitRotationSpeed = 0.2f;
+	mEarthRotation += earthRotationSpeed * deltaTime;
+	mEarthOrbitRotation += earthOrbitRotationSpeed * deltaTime;
 }
-
-enum class Shape
-{
-	None,
-	AABB,
-	AABBFilles,
-	Sphere,
-	GroundPlane,
-	GroundCircle,
-	Transform
-};
-
-const char* gShapeNames[] = 
-{
-	"None",
-	"AABB",
-	"AABBFilled",
-	"Sphere",
-	"GroundPlane",
-	"GroundCircle",
-	"Transform"
-};
-
-Shape gCurrentShape = Shape::None;
-Color gShapeColor = Colors::White;
-float gPlaneSize = 10.0f;
 
 void GameState::Render()
 {
-	switch (gCurrentShape)
-	{
-	case Shape::None:	break;
-	case Shape::AABB:
-	{
-		SimpleDraw::AddAABB({ 0.0f, 0.5f, 0.0f }, { 1.0f, 1.0f, 1.0f }, gShapeColor);
-	}
-	break;
-	case Shape::AABBFilles:
-	{
-		SimpleDraw::AddFilledAABB({ 0.0f, 0.5f, 0.0f }, { 1.0f, 1.0f, 1.0f }, gShapeColor);
-	}
-	break;
-	case Shape::Sphere:
-	{
-		SimpleDraw::AddSphere(32, 16, 1.0f, { 0.0f, 0.5f, 0.0f }, gShapeColor);
-	}
-	break;
-	case Shape::GroundPlane:
-	{
-		SimpleDraw::AddGroundPlane(gPlaneSize, gShapeColor);
-	}
-	break;
-	case Shape::GroundCircle:
-	{
-		SimpleDraw::AddGroundCircle(32, gPlaneSize * 0.5f, { 0.0f, 0.0f, 0.0f }, gShapeColor);
-	}
-	break;
-	case Shape::Transform:
-	{
-		SimpleDraw::AddTransform(Math::Matrix4::Translation({ 0.0f, 0.0f, 0.0f }));
-	}
-	break;
-	default:
-		break;
+	// Make Camera follow planets
+	//Math::Matrix4 earthMatRot = Math::Matrix4::RotationY(mEarthRotation);
+	//Math::Matrix4 earthMatTrans = Math::Matrix4::Translation(mEarthOrbitDistance, 0.0f, 0.0f);
+	//Math::Matrix4 earthMatOrbitRot = Math::Matrix4::RotationY(mEarthOrbitRotation);
+	//Math::Matrix4 earthMatWorld = earthMatRot * earthMatTrans * earthMatOrbitRot;
+	//Math::Vector3 position = Math::GetTranslation(earthMatWorld);
+	//const Math::Vector3 offset = { 2.0f, 3.0f, 0.0f };
+	//mCamera.SetPosition(position + offset);
+	//mCamera.SetLookAt(position);
 
-	}
+	// ---------------------------------------------------------------------
+
+	// prepare the GPU
+	mVertexShader.Bind();
+	mPixelShader.Bind();
+
+	// sync buffer information
+	mConstantBuffer.BindVS(0);
+	mSampler.BindPS(0);
+
+	// update buffer data
+	Math::Matrix4 matView = mCamera.GetViewMatrix();
+	Math::Matrix4 matProj = mCamera.GetProjectionMatrix();
+
+	// render sun
+	Math::Matrix4 matWorld = Math::Matrix4::Identity;
+	Math::Matrix4 wvp = matWorld * matView * matProj;
+	wvp = Math::Transpose(wvp);
+	mConstantBuffer.Update(&wvp);
+	// assign textures
+	TextureManager::Get()->BindPS(mSunTextureId, 0);
+	mSunMeshBuffer.Render();
+
+	// render Earth
+	Math::Matrix4 earthMatRot = Math::Matrix4::RotationY(mEarthRotation);
+	Math::Matrix4 earthMatTrans = Math::Matrix4::Translation(mEarthOrbitDistance, 0.0f, 0.0f);
+	Math::Matrix4 earthMatOrbitRot = Math::Matrix4::RotationY(mEarthOrbitRotation);
+	Math::Matrix4 earthMatWorld = earthMatRot * earthMatTrans * earthMatOrbitRot;
+	wvp = earthMatWorld * matView * matProj;
+	wvp = Math::Transpose(wvp);
+	mConstantBuffer.Update(&wvp);
+	// assign textures
+	TextureManager::Get()->BindPS(mEarthTextureId, 0);
+
+	// render obj
+	mEarthMeshBuffer.Render();
+
+	// render orbit lines
+	SimpleDraw::AddGroundCircle(20, mEarthOrbitDistance, Math::Vector3::Zero, Colors::White);
 
 	SimpleDraw::Render(mCamera);
 }
 
-//float myVariable = 0.0f;
+
 	void GameState::DebugUI()
 	{
 		ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-		// CONTENT GOES BETWEEN BEGIN AND END
-		ImGui::ColorEdit4("ShapeColor", &gShapeColor.r);
-		int currentShape = (int)gCurrentShape;
-		if (ImGui::Combo("Shape", &currentShape, gShapeNames, std::size(gShapeNames)))
-		{
-			gCurrentShape = (Shape)currentShape;
-		}
-
-		ImGui::DragFloat("PlaneSize", &gPlaneSize, 0.1f, 0.0f, 10000.0f);
-		// example
-		/*ImGui::Text("Hello debug window");
-		if (ImGui::DragFloat("My Variable", &myVariable, 0.1f))
-		{
-			LOG("MY VARIABLE UPDATED: %f", myVariable);
-		}
-		if (ImGui::Button("Reset My Variable"))
-		{
-			myVariable = 0.0f;
-			LOG("MY VARIABLE RESET: %f", myVariable);
-		}*/
 		ImGui::End();
 	}
 

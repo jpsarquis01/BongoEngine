@@ -135,6 +135,13 @@
       <Project>{bee8eed3-dff2-469c-ae7f-5353f1299e4f}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\06_HelloDebug\GameState.cpp" />
+    <ClCompile Include="..\06_HelloDebug\WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\06_HelloDebug\GameState.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
