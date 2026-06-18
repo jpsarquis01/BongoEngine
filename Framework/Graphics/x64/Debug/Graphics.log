@@ -21,12 +21,12 @@ C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\S
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\PixelShader.cpp(27,3): warning C4778: 'snprintf' : unterminated format string '%\n'
   (compiling source file '/Src/PixelShader.cpp')
   
+  Sampler.cpp
 C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\PixelShader.cpp(27,3): warning C4474: 'snprintf' : too many arguments passed for format string
   (compiling source file '/Src/PixelShader.cpp')
       C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\PixelShader.cpp(27,3):
       placeholders and their parameters expect 1 variadic arguments, but 2 were provided
   
-  Sampler.cpp
   SimpleDraw.cpp
   Texture.cpp
   TextureManager.cpp

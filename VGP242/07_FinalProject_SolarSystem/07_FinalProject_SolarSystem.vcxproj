@@ -136,11 +136,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\06_HelloDebug\GameState.cpp" />
-    <ClCompile Include="..\06_HelloDebug\WinMain.cpp" />
+    <ClInclude Include="GameState.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\06_HelloDebug\GameState.h" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
