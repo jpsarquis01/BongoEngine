@@ -22,6 +22,7 @@ private:
 	BongoEngine::Graphics::TextureId mMercuryTextureId;
 	BongoEngine::Graphics::TextureId mVenusTextureId;
 	BongoEngine::Graphics::TextureId mEarthTextureId;
+	BongoEngine::Graphics::TextureId mMoonTextureId;
 	BongoEngine::Graphics::TextureId mMarsTextureId;
 	BongoEngine::Graphics::TextureId mJupiterTextureId;
 	BongoEngine::Graphics::TextureId mSaturnTextureId;
@@ -33,6 +34,7 @@ private:
 	BongoEngine::Graphics::MeshBuffer mMercuryMeshBuffer;
 	BongoEngine::Graphics::MeshBuffer mVenusMeshBuffer;
 	BongoEngine::Graphics::MeshBuffer mEarthMeshBuffer;
+	BongoEngine::Graphics::MeshBuffer mMoonMeshBuffer;
 	BongoEngine::Graphics::MeshBuffer mMarsMeshBuffer;
 	BongoEngine::Graphics::MeshBuffer mJupiterMeshBuffer;
 	BongoEngine::Graphics::MeshBuffer mSaturnMeshBuffer;
@@ -53,6 +55,10 @@ private:
 	float mEarthRotation = 0.0f;
 	float mEarthOrbitRotation = 0.0f;
 	float mEarthOrbitDistance = 0.0f;
+
+	float mMoonRotation = 0.0f;
+	float mMoonOrbitRotation = 0.0f;
+	float mMoonOrbitDistance = 0.0f;
 
 	float mMarsRotation = 0.0f;
 	float mMarsOrbitRotation = 0.0f;
@@ -87,20 +93,31 @@ private:
 
 	float mMercuryTiltX = 0.0f;
 	float mMercuryTiltZ = 0.0f;
+
 	float mVenusTiltX = 0.0f;
 	float mVenusTiltZ = 0.0f;
+
 	float mEarthTiltX = 0.0f;
 	float mEarthTiltZ = 0.0f;
+
+	float mMoonTiltX = 0.0f;
+	float mMoonTiltZ = 0.0f;
+
 	float mMarsTiltX = 0.0f;
 	float mMarsTiltZ = 0.0f;
+
 	float mJupiterTiltX = 0.0f;
 	float mJupiterTiltZ = 0.0f;
+
 	float mSaturnTiltX = 0.0f;
 	float mSaturnTiltZ = 0.0f;
+
 	float mUranusTiltX = 0.0f;
 	float mUranusTiltZ = 0.0f;
+
 	float mNeptuneTiltX = 0.0f;
 	float mNeptuneTiltZ = 0.0f;
+
 	float mPlutoTiltX = 0.0f;
 	float mPlutoTiltZ = 0.0f;
 
@@ -110,7 +127,4 @@ private:
 
 	BongoEngine::Graphics::Camera mCamera;
 	BongoEngine::Graphics::ConstantBuffer mConstantBuffer;
-
-	// Moon 
-	float mMoonOrbitAngle = 0.0f;
 };

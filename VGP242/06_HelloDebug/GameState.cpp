@@ -30,9 +30,9 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 8.0f, -25.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
-	// make Skybox
-	Graphics::MeshPX skyboxBackgrond = MeshBuilder::CreateSpherePX(30, 30, 100.0f);
-	mSkyboxMeshBuffer.Initialize(skyboxBackgrond);
+	Graphics::MeshPX skysphere = MeshBuilder::CreateSkySpherePX(100, 100, 200.0f);
+	mSkyboxMeshBuffer.Initialize(skysphere);
+	mSkyboxTextureId = TextureManager::Get()->LoadTexture("skysphere/space.jpg");
 
 	// make all the spheres/planets
 	Graphics::MeshPX sun = MeshBuilder::CreateSpherePX(30, 30, 1.5f);
@@ -46,6 +46,9 @@ void GameState::Initialize()
 
 	Graphics::MeshPX earth = MeshBuilder::CreateSpherePX(30, 30, 0.3f);
 	mEarthMeshBuffer.Initialize(earth);
+
+	Graphics::MeshPX moon = MeshBuilder::CreateSpherePX(30, 30, 0.1f);
+	mMoonMeshBuffer.Initialize(moon);
 
 	Graphics::MeshPX mars = MeshBuilder::CreateSpherePX(30, 30, 0.22f);
 	mMarsMeshBuffer.Initialize(mars);
@@ -77,13 +80,13 @@ void GameState::Initialize()
 	mMercuryTextureId = TextureManager::Get()->LoadTexture("planets/mercury.jpg");
 	mVenusTextureId = TextureManager::Get()->LoadTexture("planets/venus.jpg");
 	mEarthTextureId = TextureManager::Get()->LoadTexture("earth.jpg");
+	mMoonTextureId = TextureManager::Get()->LoadTexture("earth.jpg");
 	mMarsTextureId = TextureManager::Get()->LoadTexture("planets/mars.jpg");
 	mJupiterTextureId = TextureManager::Get()->LoadTexture("planets/jupiter.jpg");
 	mSaturnTextureId = TextureManager::Get()->LoadTexture("planets/saturn.jpg");
 	mUranusTextureId = TextureManager::Get()->LoadTexture("planets/uranus.jpg");
 	mNeptuneTextureId = TextureManager::Get()->LoadTexture("planets/neptune.jpg");
 	mPlutoTextureId = TextureManager::Get()->LoadTexture("planets/pluto.jpg");
-	mSkyboxTextureId = TextureManager::Get()->LoadTexture("skysphere/space.jpg");
 
 	// how far each planet is from the sun
 	mMercuryOrbitDistance = 3.0f;
@@ -106,6 +109,7 @@ void GameState::Terminate()
 	TextureManager::Get()->ReleaseTexture(mJupiterTextureId);
 	TextureManager::Get()->ReleaseTexture(mMarsTextureId);
 	TextureManager::Get()->ReleaseTexture(mEarthTextureId);
+	TextureManager::Get()->ReleaseTexture(mMoonTextureId);
 	TextureManager::Get()->ReleaseTexture(mVenusTextureId);
 	TextureManager::Get()->ReleaseTexture(mMercuryTextureId);
 	TextureManager::Get()->ReleaseTexture(mSunTextureId);
@@ -123,6 +127,7 @@ void GameState::Terminate()
 	mJupiterMeshBuffer.Terminate();
 	mMarsMeshBuffer.Terminate();
 	mEarthMeshBuffer.Terminate();
+	mMoonMeshBuffer.Terminate();
 	mVenusMeshBuffer.Terminate();
 	mMercuryMeshBuffer.Terminate();
 	mSunMeshBuffer.Terminate();
@@ -295,6 +300,14 @@ void GameState::Render()
 	mConstantBuffer.Update(&wvp);
 	TextureManager::Get()->BindPS(mPlutoTextureId, 0);
 	mPlutoMeshBuffer.Render();
+
+	// Skybox
+	Math::Matrix4 skyWorld = Math::Matrix4::Identity;
+	Math::Matrix4 skyWvp = Math::Transpose(skyWorld * matView * matProj);
+	mConstantBuffer.Update(&skyWvp);
+	TextureManager::Get()->BindPS(mSkyboxTextureId, 0);
+	mSkyboxMeshBuffer.Render();
+	
 
 	// orbit lines 
 	DrawCircle(mMercuryOrbitDistance, Math::Matrix4::RotationX(mMercuryTiltX) * Math::Matrix4::RotationZ(mMercuryTiltZ), Colors::DarkGray);
