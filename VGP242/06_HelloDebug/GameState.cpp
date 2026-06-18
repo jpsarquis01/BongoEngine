@@ -30,6 +30,10 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 8.0f, -25.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
+	// make Skybox
+	Graphics::MeshPX skyboxBackgrond = MeshBuilder::CreateSpherePX(30, 30, 100.0f);
+	mSkyboxMeshBuffer.Initialize(skyboxBackgrond);
+
 	// make all the spheres/planets
 	Graphics::MeshPX sun = MeshBuilder::CreateSpherePX(30, 30, 1.5f);
 	mSunMeshBuffer.Initialize(sun);
@@ -79,6 +83,7 @@ void GameState::Initialize()
 	mUranusTextureId = TextureManager::Get()->LoadTexture("planets/uranus.jpg");
 	mNeptuneTextureId = TextureManager::Get()->LoadTexture("planets/neptune.jpg");
 	mPlutoTextureId = TextureManager::Get()->LoadTexture("planets/pluto.jpg");
+	mSkyboxTextureId = TextureManager::Get()->LoadTexture("skysphere/space.jpg");
 
 	// how far each planet is from the sun
 	mMercuryOrbitDistance = 3.0f;
@@ -104,6 +109,7 @@ void GameState::Terminate()
 	TextureManager::Get()->ReleaseTexture(mVenusTextureId);
 	TextureManager::Get()->ReleaseTexture(mMercuryTextureId);
 	TextureManager::Get()->ReleaseTexture(mSunTextureId);
+	TextureManager::Get()->ReleaseTexture(mSkyboxTextureId);
 
 	mSampler.Terminate();
 	mConstantBuffer.Terminate();
@@ -120,6 +126,7 @@ void GameState::Terminate()
 	mVenusMeshBuffer.Terminate();
 	mMercuryMeshBuffer.Terminate();
 	mSunMeshBuffer.Terminate();
+	mSkyboxMeshBuffer.Terminate();
 }
 
 void GameState::Update(float deltaTime)
@@ -179,14 +186,14 @@ void GameState::Update(float deltaTime)
 	}
 
 	// Moon around Earth
-	mMoonOrbitAngle += (0.0103f + gOrbitalRotationSpeed) * deltaTime;
-	mMoonOrbitAngle += (0.0103f + gOrbitalRotationSpeed) * deltaTime;
-
-	Math::Vector3 earthPos = Math::GetTranslation(mEarth.matWorld);
-	Math::Matrix4 moonOrbit = Math::Matrix4::RotationY(mMoonOrbitAngle);
-	Math::Matrix4 moonOffset = Math::Matrix4::Translation({ 0.0f, 0.0f, 0.8f });
-
-	mMoon.matWorld = moonOffset * moonOrbit * Math::Matrix4::Translation(earthPos);
+	//mMoonOrbitAngle += (0.0103f + gOrbitalRotationSpeed) * deltaTime;
+	//mMoonOrbitAngle += (0.0103f + gOrbitalRotationSpeed) * deltaTime;
+	//
+	//Math::Vector3 earthPos = Math::GetTranslation(mEarth.matWorld);
+	//Math::Matrix4 moonOrbit = Math::Matrix4::RotationY(mMoonOrbitAngle);
+	//Math::Matrix4 moonOffset = Math::Matrix4::Translation({ 0.0f, 0.0f, 0.8f });
+	//
+	//mMoon.matWorld = moonOffset * moonOrbit * Math::Matrix4::Translation(earthPos);
 }
 
 void GameState::Render()

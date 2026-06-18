@@ -1,10 +1,5 @@
 ﻿  GameState.cpp
-D:\LaSalle_2yr\6th Tri\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
   (compiling source file '../06_HelloDebug/GameState.cpp')
   
-  WinMain.cpp
-D:\LaSalle_2yr\6th Tri\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
-  (compiling source file '../06_HelloDebug/WinMain.cpp')
-  
-  Generating Code...
-  07_FinalProject_SolarSystem.vcxproj -> D:\LaSalle_2yr\6th Tri\BongoEngine\x64\Debug\07_FinalProject_SolarSystem.exe
+  07_FinalProject_SolarSystem.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\07_FinalProject_SolarSystem.exe

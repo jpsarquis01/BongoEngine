@@ -13,6 +13,11 @@ public:
 private:
 	void UpdateCamera(float deltaTime);
 
+	// Skybox
+	BongoEngine::Graphics::TextureId mSkyboxTextureId;
+	BongoEngine::Graphics::MeshBuffer mSkyboxMeshBuffer;
+
+	// Planets
 	BongoEngine::Graphics::TextureId mSunTextureId;
 	BongoEngine::Graphics::TextureId mMercuryTextureId;
 	BongoEngine::Graphics::TextureId mVenusTextureId;
