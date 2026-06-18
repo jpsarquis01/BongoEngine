@@ -6,7 +6,7 @@ using namespace BongoEngine;
 using namespace BongoEngine::Graphics;
 using namespace BongoEngine::Input;
 
-// gives a random tilt angle 
+// gives a random tilt angle for "Random mode"
 static float RandomTilt()
 {
 	return ((rand() % 360) - 180) * 0.01745329f;
