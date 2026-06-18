@@ -212,8 +212,20 @@ void GameState::Render()
 	Math::Matrix4 matView = mCamera.GetViewMatrix();
 	Math::Matrix4 matProj = mCamera.GetProjectionMatrix();
 
-	// sun 
 	Math::Matrix4 sunMatWorld = Math::Matrix4::RotationY(mSunRotation);
+	Math::Matrix4 mercuryMatWorld = Math::Matrix4::RotationY(mMercuryRotation) * Math::Matrix4::Translation(mMercuryOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMercuryOrbitRotation) * Math::Matrix4::RotationX(mMercuryTiltX) * Math::Matrix4::RotationZ(mMercuryTiltZ);
+	Math::Matrix4 venusMatWorld = Math::Matrix4::RotationY(mVenusRotation) * Math::Matrix4::Translation(mVenusOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mVenusOrbitRotation) * Math::Matrix4::RotationX(mVenusTiltX) * Math::Matrix4::RotationZ(mVenusTiltZ);
+	Math::Matrix4 earthMatWorld = Math::Matrix4::RotationY(mEarthRotation) * Math::Matrix4::Translation(mEarthOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mEarthOrbitRotation) * Math::Matrix4::RotationX(mEarthTiltX) * Math::Matrix4::RotationZ(mEarthTiltZ);
+	Math::Vector3 earthPos = Math::GetTranslation(earthMatWorld);
+	Math::Matrix4 moonMatWorld = Math::Matrix4::RotationY(mMoonRotation) * Math::Matrix4::Translation(mMoonOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMoonOrbitRotation) * Math::Matrix4::Translation(earthPos);
+	Math::Matrix4 marsMatWorld = Math::Matrix4::RotationY(mMarsRotation) * Math::Matrix4::Translation(mMarsOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMarsOrbitRotation) * Math::Matrix4::RotationX(mMarsTiltX) * Math::Matrix4::RotationZ(mMarsTiltZ);
+	Math::Matrix4 jupiterMatWorld = Math::Matrix4::RotationY(mJupiterRotation) * Math::Matrix4::Translation(mJupiterOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mJupiterOrbitRotation) * Math::Matrix4::RotationX(mJupiterTiltX) * Math::Matrix4::RotationZ(mJupiterTiltZ);
+	Math::Matrix4 saturnMatWorld = Math::Matrix4::RotationY(mSaturnRotation) * Math::Matrix4::Translation(mSaturnOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mSaturnOrbitRotation) * Math::Matrix4::RotationX(mSaturnTiltX) * Math::Matrix4::RotationZ(mSaturnTiltZ);
+	Math::Matrix4 uranusMatWorld = Math::Matrix4::RotationY(mUranusRotation) * Math::Matrix4::Translation(mUranusOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mUranusOrbitRotation) * Math::Matrix4::RotationX(mUranusTiltX) * Math::Matrix4::RotationZ(mUranusTiltZ);
+	Math::Matrix4 neptuneMatWorld = Math::Matrix4::RotationY(mNeptuneRotation) * Math::Matrix4::Translation(mNeptuneOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mNeptuneOrbitRotation) * Math::Matrix4::RotationX(mNeptuneTiltX) * Math::Matrix4::RotationZ(mNeptuneTiltZ);
+	Math::Matrix4 plutoMatWorld = Math::Matrix4::RotationY(mPlutoRotation) * Math::Matrix4::Translation(mPlutoOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mPlutoOrbitRotation) * Math::Matrix4::RotationX(mPlutoTiltX) * Math::Matrix4::RotationZ(mPlutoTiltZ);
+
+	// sun
 	Math::Matrix4 wvp = sunMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -221,7 +233,6 @@ void GameState::Render()
 	mSunMeshBuffer.Render();
 
 	// mercury
-	Math::Matrix4 mercuryMatWorld = Math::Matrix4::RotationY(mMercuryRotation) * Math::Matrix4::Translation(mMercuryOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMercuryOrbitRotation) * Math::Matrix4::RotationX(mMercuryTiltX) * Math::Matrix4::RotationZ(mMercuryTiltZ);
 	wvp = mercuryMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -229,7 +240,6 @@ void GameState::Render()
 	mMercuryMeshBuffer.Render();
 
 	// venus
-	Math::Matrix4 venusMatWorld = Math::Matrix4::RotationY(mVenusRotation) * Math::Matrix4::Translation(mVenusOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mVenusOrbitRotation) * Math::Matrix4::RotationX(mVenusTiltX) * Math::Matrix4::RotationZ(mVenusTiltZ);
 	wvp = venusMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -237,7 +247,6 @@ void GameState::Render()
 	mVenusMeshBuffer.Render();
 
 	// earth
-	Math::Matrix4 earthMatWorld = Math::Matrix4::RotationY(mEarthRotation) * Math::Matrix4::Translation(mEarthOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mEarthOrbitRotation) * Math::Matrix4::RotationX(mEarthTiltX) * Math::Matrix4::RotationZ(mEarthTiltZ);
 	wvp = earthMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -245,8 +254,6 @@ void GameState::Render()
 	mEarthMeshBuffer.Render();
 
 	// moon, orbits around the earth
-	Math::Vector3 earthPos = Math::GetTranslation(earthMatWorld);
-	Math::Matrix4 moonMatWorld = Math::Matrix4::RotationY(mMoonRotation) * Math::Matrix4::Translation(mMoonOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMoonOrbitRotation) * Math::Matrix4::Translation(earthPos);
 	wvp = moonMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -254,7 +261,6 @@ void GameState::Render()
 	mMoonMeshBuffer.Render();
 
 	// mars
-	Math::Matrix4 marsMatWorld = Math::Matrix4::RotationY(mMarsRotation) * Math::Matrix4::Translation(mMarsOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMarsOrbitRotation) * Math::Matrix4::RotationX(mMarsTiltX) * Math::Matrix4::RotationZ(mMarsTiltZ);
 	wvp = marsMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -262,7 +268,6 @@ void GameState::Render()
 	mMarsMeshBuffer.Render();
 
 	// jupiter
-	Math::Matrix4 jupiterMatWorld = Math::Matrix4::RotationY(mJupiterRotation) * Math::Matrix4::Translation(mJupiterOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mJupiterOrbitRotation) * Math::Matrix4::RotationX(mJupiterTiltX) * Math::Matrix4::RotationZ(mJupiterTiltZ);
 	wvp = jupiterMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -270,7 +275,6 @@ void GameState::Render()
 	mJupiterMeshBuffer.Render();
 
 	// saturn
-	Math::Matrix4 saturnMatWorld = Math::Matrix4::RotationY(mSaturnRotation) * Math::Matrix4::Translation(mSaturnOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mSaturnOrbitRotation) * Math::Matrix4::RotationX(mSaturnTiltX) * Math::Matrix4::RotationZ(mSaturnTiltZ);
 	wvp = saturnMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -287,7 +291,6 @@ void GameState::Render()
 	}
 
 	// uranus
-	Math::Matrix4 uranusMatWorld = Math::Matrix4::RotationY(mUranusRotation) * Math::Matrix4::Translation(mUranusOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mUranusOrbitRotation) * Math::Matrix4::RotationX(mUranusTiltX) * Math::Matrix4::RotationZ(mUranusTiltZ);
 	wvp = uranusMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -295,7 +298,6 @@ void GameState::Render()
 	mUranusMeshBuffer.Render();
 
 	// neptune
-	Math::Matrix4 neptuneMatWorld = Math::Matrix4::RotationY(mNeptuneRotation) * Math::Matrix4::Translation(mNeptuneOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mNeptuneOrbitRotation) * Math::Matrix4::RotationX(mNeptuneTiltX) * Math::Matrix4::RotationZ(mNeptuneTiltZ);
 	wvp = neptuneMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -303,7 +305,6 @@ void GameState::Render()
 	mNeptuneMeshBuffer.Render();
 
 	// pluto
-	Math::Matrix4 plutoMatWorld = Math::Matrix4::RotationY(mPlutoRotation) * Math::Matrix4::Translation(mPlutoOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mPlutoOrbitRotation) * Math::Matrix4::RotationX(mPlutoTiltX) * Math::Matrix4::RotationZ(mPlutoTiltZ);
 	wvp = plutoMatWorld * matView * matProj;
 	wvp = Math::Transpose(wvp);
 	mConstantBuffer.Update(&wvp);
@@ -316,7 +317,7 @@ void GameState::Render()
 	mConstantBuffer.Update(&skyWvp);
 	TextureManager::Get()->BindPS(mSkyboxTextureId, 0);
 	mSkyboxMeshBuffer.Render();
-	
+
 
 	// orbit lines 
 	DrawCircle(mMercuryOrbitDistance, Math::Matrix4::RotationX(mMercuryTiltX) * Math::Matrix4::RotationZ(mMercuryTiltZ), Colors::DarkGray);
