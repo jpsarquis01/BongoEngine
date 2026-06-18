@@ -148,6 +148,9 @@ void GameState::Update(float deltaTime)
 	mEarthRotation += 0.5f * deltaTime;
 	mEarthOrbitRotation += 0.2f * deltaTime;
 
+	mMoonRotation += 1.0f * deltaTime;
+	mMoonOrbitRotation += 0.1f * deltaTime;
+
 	mMarsRotation += 0.5f * deltaTime;
 	mMarsOrbitRotation += 0.16f * deltaTime;
 
@@ -183,6 +186,7 @@ void GameState::Update(float deltaTime)
 		if (mCameraTarget == 7) world = Math::Matrix4::RotationY(mUranusRotation) * Math::Matrix4::Translation(mUranusOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mUranusOrbitRotation) * Math::Matrix4::RotationX(mUranusTiltX) * Math::Matrix4::RotationZ(mUranusTiltZ);
 		if (mCameraTarget == 8) world = Math::Matrix4::RotationY(mNeptuneRotation) * Math::Matrix4::Translation(mNeptuneOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mNeptuneOrbitRotation) * Math::Matrix4::RotationX(mNeptuneTiltX) * Math::Matrix4::RotationZ(mNeptuneTiltZ);
 		if (mCameraTarget == 9) world = Math::Matrix4::RotationY(mPlutoRotation) * Math::Matrix4::Translation(mPlutoOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mPlutoOrbitRotation) * Math::Matrix4::RotationX(mPlutoTiltX) * Math::Matrix4::RotationZ(mPlutoTiltZ);
+		if (mCameraTarget == 10) world = Math::Matrix4::RotationY(mMoonRotation) * Math::Matrix4::Translation(mMoonOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMoonOrbitRotation) * Math::Matrix4::RotationX(mMoonTiltX) * Math::Matrix4::RotationZ(mMoonTiltZ);;
 
 		Math::Vector3 planetPos = Math::GetTranslation(world);
 		const Math::Vector3 offset = { 2.0f, 3.0f, 0.0f };
@@ -243,6 +247,9 @@ void GameState::Render()
 	mConstantBuffer.Update(&wvp);
 	TextureManager::Get()->BindPS(mEarthTextureId, 0);
 	mEarthMeshBuffer.Render();
+
+	// moon
+
 
 	// mars
 	Math::Matrix4 marsMatWorld = Math::Matrix4::RotationY(mMarsRotation) * Math::Matrix4::Translation(mMarsOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMarsOrbitRotation) * Math::Matrix4::RotationX(mMarsTiltX) * Math::Matrix4::RotationZ(mMarsTiltZ);
@@ -313,6 +320,7 @@ void GameState::Render()
 	DrawCircle(mMercuryOrbitDistance, Math::Matrix4::RotationX(mMercuryTiltX) * Math::Matrix4::RotationZ(mMercuryTiltZ), Colors::DarkGray);
 	DrawCircle(mVenusOrbitDistance, Math::Matrix4::RotationX(mVenusTiltX) * Math::Matrix4::RotationZ(mVenusTiltZ), Colors::DarkGray);
 	DrawCircle(mEarthOrbitDistance, Math::Matrix4::RotationX(mEarthTiltX) * Math::Matrix4::RotationZ(mEarthTiltZ), Colors::DarkGray);
+	DrawCircle(mMoonOrbitDistance, Math::Matrix4::RotationX(mMoonTiltX) * Math::Matrix4::RotationZ(mMoonTiltZ), Colors::DarkGray);
 	DrawCircle(mMarsOrbitDistance, Math::Matrix4::RotationX(mMarsTiltX) * Math::Matrix4::RotationZ(mMarsTiltZ), Colors::DarkGray);
 	DrawCircle(mJupiterOrbitDistance, Math::Matrix4::RotationX(mJupiterTiltX) * Math::Matrix4::RotationZ(mJupiterTiltZ), Colors::DarkGray);
 	DrawCircle(mSaturnOrbitDistance, Math::Matrix4::RotationX(mSaturnTiltX) * Math::Matrix4::RotationZ(mSaturnTiltZ), Colors::DarkGray);
@@ -373,6 +381,11 @@ void GameState::DebugUI()
 	ImGui::RadioButton("Neptune", &mCameraTarget, 8);
 	ImGui::RadioButton("Pluto", &mCameraTarget, 9);
 	ImGui::End();
+
+	// make planets go faster or slower
+	ImGui::Begin("Speed", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::SliderFloat("Orbital Speed", &gOrbitalRotationSpeed, -0.5f, 0.5f);
+	ImGui::SliderFloat("Rotation Speed", &gRotationSpeed, -0.5f, 0.5f);
 }
 
 void GameState::UpdateCamera(float deltaTime)
