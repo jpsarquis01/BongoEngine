@@ -383,9 +383,9 @@ void GameState::DebugUI()
 	ImGui::End();
 
 	// make planets go faster or slower
-	ImGui::Begin("Speed", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-	ImGui::SliderFloat("Orbital Speed", &gOrbitalRotationSpeed, -0.5f, 0.5f);
-	ImGui::SliderFloat("Rotation Speed", &gRotationSpeed, -0.5f, 0.5f);
+	//ImGui::Begin("Speed", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	//ImGui::SliderFloat("Orbital Speed", &gOrbitalRotationSpeed, -0.5f, 0.5f);
+	//ImGui::SliderFloat("Rotation Speed", &gRotationSpeed, -0.5f, 0.5f);
 }
 
 void GameState::UpdateCamera(float deltaTime)

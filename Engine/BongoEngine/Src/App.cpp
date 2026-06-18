@@ -76,6 +76,7 @@ void App::Run(const AppConfig& config)
 	mCurrentState->Terminate();
 
 	// for all systems we build, terminate all sigletones
+	SimpleDraw::StaticsTerminate();
 	GraphicsSystem::StaticTerminate();
 	InputSystem::StaticTerminate();
 	TextureManager::StaticTerminate();
