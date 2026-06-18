@@ -1,2 +1,43 @@
-﻿  SimpleDraw.cpp
-  Graphics.vcxproj -> D:\LaSalle_2yr\6th Tri\BongoEngine\x64\Debug\Graphics.lib
+﻿  Precompiled.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
+  (compiling source file 'Src/Precompiled.cpp')
+  
+  Camera.cpp
+  ConstantBuffer.cpp
+  DebugUI.cpp
+  GraphicsSystem.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\GraphicsSystem.cpp(118,109): warning C4244: 'argument': conversion from 'float' to 'UINT8', possible loss of data
+  (compiling source file '/Src/GraphicsSystem.cpp')
+  
+  MeshBuffer.cpp
+  MeshBuilder.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\MeshBuilder.cpp(283,58): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '/Src/MeshBuilder.cpp')
+  
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\MeshBuilder.cpp(283,18): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+  (compiling source file '/Src/MeshBuilder.cpp')
+  
+  PixelShader.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\PixelShader.cpp(27,3): warning C4778: 'snprintf' : unterminated format string '%\n'
+  (compiling source file '/Src/PixelShader.cpp')
+  
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\PixelShader.cpp(27,3): warning C4474: 'snprintf' : too many arguments passed for format string
+  (compiling source file '/Src/PixelShader.cpp')
+      C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\PixelShader.cpp(27,3):
+      placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+  
+  Sampler.cpp
+  SimpleDraw.cpp
+  Texture.cpp
+  TextureManager.cpp
+  VertexShader.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\VertexShader.cpp(69,3): warning C4778: 'snprintf' : unterminated format string '%\n'
+  (compiling source file '/Src/VertexShader.cpp')
+  
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\VertexShader.cpp(69,3): warning C4474: 'snprintf' : too many arguments passed for format string
+  (compiling source file '/Src/VertexShader.cpp')
+      C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\VertexShader.cpp(69,3):
+      placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+  
+  Generating Code...
+  Graphics.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\Graphics.lib

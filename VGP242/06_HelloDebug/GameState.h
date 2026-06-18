@@ -35,7 +35,6 @@ private:
 	BongoEngine::Graphics::MeshBuffer mNeptuneMeshBuffer;
 	BongoEngine::Graphics::MeshBuffer mPlutoMeshBuffer;
 
-	// rotation = spin on its own axis, orbit = going around the sun
 	float mSunRotation = 0.0f;
 
 	float mMercuryRotation = 0.0f;
@@ -74,11 +73,11 @@ private:
 	float mPlutoOrbitRotation = 0.0f;
 	float mPlutoOrbitDistance = 0.0f;
 
-	// random mode tilts the orbit of each planet so they go up/down and sideways
+	// random mode tilts the orbit 
 	bool mRandomMode = false;
 	bool mShowSaturnRings = false;
 
-	// 0 = free camera, otherwise the camera follows the picked planet
+	// camera follows the picked planet
 	int mCameraTarget = 0;
 
 	float mMercuryTiltX = 0.0f;
@@ -106,4 +105,7 @@ private:
 
 	BongoEngine::Graphics::Camera mCamera;
 	BongoEngine::Graphics::ConstantBuffer mConstantBuffer;
+
+	// Moon 
+	float mMoonOrbitAngle = 0.0f;
 };

@@ -6,14 +6,12 @@ using namespace BongoEngine;
 using namespace BongoEngine::Graphics;
 using namespace BongoEngine::Input;
 
-// gives a random tilt angle (in radians) somewhere between -180 and 180 degrees
+// gives a random tilt angle 
 static float RandomTilt()
 {
 	return ((rand() % 360) - 180) * 0.01745329f;
 }
 
-// draws a circle out of lines. the engine's AddGroundCircle ignores the position
-// and is always flat, so this one lets us move it and tilt it with a matrix.
 static void DrawCircle(float radius, const Math::Matrix4& matrix, const Color& color)
 {
 	const int slices = 60;
@@ -32,7 +30,7 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 8.0f, -25.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
-	// make all the spheres (the number is the size of the planet)
+	// make all the spheres/planets
 	Graphics::MeshPX sun = MeshBuilder::CreateSpherePX(30, 30, 1.5f);
 	mSunMeshBuffer.Initialize(sun);
 
@@ -156,14 +154,13 @@ void GameState::Update(float deltaTime)
 	mPlutoRotation += 0.4f * deltaTime;
 	mPlutoOrbitRotation += 0.04f * deltaTime;
 
-	// camera: fly around freely, or follow the planet picked in the Camera menu
+	// follow the planet picked in the Camera menu
 	if (mCameraTarget == 0)
 	{
 		UpdateCamera(deltaTime);
 	}
 	else
 	{
-		// build the same world matrix as in Render so we get the planet's position
 		Math::Matrix4 world = Math::Matrix4::Identity;
 		if (mCameraTarget == 1) world = Math::Matrix4::RotationY(mMercuryRotation) * Math::Matrix4::Translation(mMercuryOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mMercuryOrbitRotation) * Math::Matrix4::RotationX(mMercuryTiltX) * Math::Matrix4::RotationZ(mMercuryTiltZ);
 		if (mCameraTarget == 2) world = Math::Matrix4::RotationY(mVenusRotation) * Math::Matrix4::Translation(mVenusOrbitDistance, 0.0f, 0.0f) * Math::Matrix4::RotationY(mVenusOrbitRotation) * Math::Matrix4::RotationX(mVenusTiltX) * Math::Matrix4::RotationZ(mVenusTiltZ);
@@ -180,6 +177,16 @@ void GameState::Update(float deltaTime)
 		mCamera.SetPosition(planetPos + offset);
 		mCamera.SetLookAt(planetPos);
 	}
+
+	// Moon around Earth
+	mMoonOrbitAngle += (0.0103f + gOrbitalRotationSpeed) * deltaTime;
+	mMoonOrbitAngle += (0.0103f + gOrbitalRotationSpeed) * deltaTime;
+
+	Math::Vector3 earthPos = Math::GetTranslation(mEarth.matWorld);
+	Math::Matrix4 moonOrbit = Math::Matrix4::RotationY(mMoonOrbitAngle);
+	Math::Matrix4 moonOffset = Math::Matrix4::Translation({ 0.0f, 0.0f, 0.8f });
+
+	mMoon.matWorld = moonOffset * moonOrbit * Math::Matrix4::Translation(earthPos);
 }
 
 void GameState::Render()
@@ -249,8 +256,7 @@ void GameState::Render()
 	TextureManager::Get()->BindPS(mSaturnTextureId, 0);
 	mSaturnMeshBuffer.Render();
 
-	// saturn rings (a few circles around saturn, tilted the same as saturn and
-	// moved to wherever saturn currently is)
+	// saturn rings
 	if (mShowSaturnRings)
 	{
 		Math::Matrix4 ringMat = Math::Matrix4::RotationX(mSaturnTiltX) * Math::Matrix4::RotationZ(mSaturnTiltZ) * Math::Matrix4::Translation(Math::GetTranslation(saturnMatWorld));
@@ -283,7 +289,7 @@ void GameState::Render()
 	TextureManager::Get()->BindPS(mPlutoTextureId, 0);
 	mPlutoMeshBuffer.Render();
 
-	// orbit lines (tilted the same way as each planet so they match the path)
+	// orbit lines 
 	DrawCircle(mMercuryOrbitDistance, Math::Matrix4::RotationX(mMercuryTiltX) * Math::Matrix4::RotationZ(mMercuryTiltZ), Colors::DarkGray);
 	DrawCircle(mVenusOrbitDistance, Math::Matrix4::RotationX(mVenusTiltX) * Math::Matrix4::RotationZ(mVenusTiltZ), Colors::DarkGray);
 	DrawCircle(mEarthOrbitDistance, Math::Matrix4::RotationX(mEarthTiltX) * Math::Matrix4::RotationZ(mEarthTiltZ), Colors::DarkGray);
@@ -300,8 +306,7 @@ void GameState::Render()
 void GameState::DebugUI()
 {
 	ImGui::Begin("Random Mode", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-	// when you turn it on, give every planet a random tilt so the orbits
-	// point in all directions (up/down, sideways). turning it off resets them.
+	// give every planet a random tilt so the orbits
 	if (ImGui::Checkbox("Random Mode", &mRandomMode))
 	{
 		if (mRandomMode)
@@ -335,7 +340,7 @@ void GameState::DebugUI()
 	ImGui::Checkbox("Show Saturn Rings", &mShowSaturnRings);
 	ImGui::End();
 
-	// pick which planet the camera follows (Free Camera lets you fly with WASD)
+	// pick which planet the camera follows 
 	ImGui::Begin("Camera", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::RadioButton("Free Camera", &mCameraTarget, 0);
 	ImGui::RadioButton("Mercury", &mCameraTarget, 1);
