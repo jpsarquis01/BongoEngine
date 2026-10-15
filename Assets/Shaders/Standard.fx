@@ -65,7 +65,7 @@ VS_OUTPUT VS(VS_INPUT input)
     if(useBumpMap)
     {
         float4 bumpMapColor = bumpMap.SampleLevel(textureSampler, input.texCoord, 0.0f);
-        float bumpHeight = (bumpMapColor.r * 2, 0f) - 1.0f;
+        float bumpHeight = (bumpMapColor.r * 2.0f) - 1.0f;
         localPosition += (input.normal * bumpHeight * bumpWeight);
     }
     
@@ -95,7 +95,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
         float3 b = normalize(cross(n, t));
         float3x3 tbnw = float3x3(t, b, n);
         float4 normMapColor = normalMap.Sample(textureSampler, input.texCoord);
-        float3 unpackedNormal = normalize(float3((normMapColor.xy * 2, 0f) - 1.0f, normMapColor.z));
+        float3 unpackedNormal = normalize(float3((normMapColor.xy * 2.0f) - 1.0f, normMapColor.z));
         n = normalize(mul(unpackedNormal, tbnw));
     }
     
