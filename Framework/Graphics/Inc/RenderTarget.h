@@ -15,11 +15,11 @@ namespace BongoEngine::Graphics
 		};
 
 		RenderTarget() = default;
-		~RenderTarget() override;
+		~RenderTarget();
 
-		void Initialize(const std::filesystem::path& fileName) override;
+		void Initialize(const std::filesystem::path& fileName);
 		void Initialize(uint32_t width, uint32_t height, Format format);
-		void Terminaete() override;
+		void Terminaete();
 
 		void BeginRender(Color clearColor = Colors::Black);
 		void EndRender();
