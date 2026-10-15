@@ -13,7 +13,7 @@ cbuffer LightBuffer : register(b1)
     float4 lightAmbient;
     float4 lightDiffuse;
     float4 lightSpecular;
-    float4 lightDirection;
+    float3 lightDirection;
 };
 
 cbuffer MaterialBuffer : register(b2)
@@ -22,7 +22,7 @@ cbuffer MaterialBuffer : register(b2)
     float4 materialAmbient;
     float4 materialDiffuse;
     float4 materialSpecular;
-    float4 materialShininess;
+    float materialShininess;
 };
 
 cbuffer SettingsBuffer : register(b3)
@@ -61,6 +61,14 @@ struct VS_OUTPUT
 
 VS_OUTPUT VS(VS_INPUT input)
 {
+    float3 localPosition = input.position;
+    if(useBumpMap)
+    {
+        float4 bumpMapColor = bumpMap.SampleLevel(textureSampler, input.texCoord, 0.0f);
+        float bumpHeight = (bumpMapColor.r * 2, 0f) - 1.0f;
+        localPosition += (input.normal * bumpHeight * bumpWeight);
+    }
+    
     VS_OUTPUT output;
     output.position = mul(float4(input.position, 1.0f), wvp);
     output.worldNormal = mul(input.normal, (float3x3) world);
@@ -80,6 +88,16 @@ float4 PS(VS_OUTPUT input) : SV_Target
     float3 n = normalize(input.worldNormal);
     float3 light = normalize(input.dirToLight);
     float3 view = normalize(input.dirToView);
+    
+    if(useNormalMap)
+    {
+        float3 t = normalize(input.worldTangent);
+        float3 b = normalize(cross(n, t));
+        float3x3 tbnw = float3x3(t, b, n);
+        float4 normMapColor = normalMap.Sample(textureSampler, input.texCoord);
+        float3 unpackedNormal = normalize(float3((normMapColor.xy * 2, 0f) - 1.0f, normMapColor.z));
+        n = normalize(mul(unpackedNormal, tbnw));
+    }
     
     // Emissive
     float4 emissive = materialEmissive;

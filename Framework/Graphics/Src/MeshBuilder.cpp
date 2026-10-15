@@ -516,9 +516,9 @@ Mesh MeshBuilder::CreateSphere(int slices, int rings, float radius)
 			float u = uStep * sF;
 			float v = vStep * rF;
 			Math::Vector3 pos = {
-				radius * cos(rotation) * sin(phi),	 // x
+				radius * sin(rotation) * sin(phi),	 // x
 				radius * cos(phi),					 // y
-				radius * sin(rotation) * sin(phi) }; // z
+				radius * cos(rotation) * sin(phi) }; // z
 
 			Math::Vector3 norm = Math::Normalize(pos);
 			Math::Vector3 tang = (abs(Math::Dot(norm, Math::Vector3::YAxis))) < 0.99f?
