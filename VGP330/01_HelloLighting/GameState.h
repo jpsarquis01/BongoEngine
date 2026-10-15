@@ -16,7 +16,8 @@ private:
 	BongoEngine::Graphics::Camera mCamera;
 	BongoEngine::Graphics::DirectionalLight mDirectionalLight;
 	BongoEngine::Graphics::StandardEffect mStandardEffect;
+	BongoEngine::Graphics::StandardEffect mStandardEffectCel;
 
 	BongoEngine::Graphics::RenderObject mRenderObject;
-
+	bool mUseCelShading = false;
 };
