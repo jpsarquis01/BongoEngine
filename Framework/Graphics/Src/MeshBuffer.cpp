@@ -46,7 +46,7 @@ void MeshBuffer::SetTopology(Topology topology)
 	}
 }
 
-void MeshBuffer::Render()
+void MeshBuffer::Render() const
 {
 	auto context = GraphicsSystem::Get()->GetContext();
 

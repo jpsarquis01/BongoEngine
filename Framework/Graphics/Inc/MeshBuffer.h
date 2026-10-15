@@ -26,7 +26,7 @@ namespace BongoEngine::Graphics
 		void Update(const void* vertices, uint32_t vertexCount);
 
 		void SetTopology(Topology topology);
-		void Render();
+		void Render() const;
 
 	private:
 		void CreateVertexBuffer(const void* vertices, uint32_t bvbertexSize, uint32_t vertexCount);

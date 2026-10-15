@@ -35,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{29D8
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
 		Assets\Shaders\DoTexture.fx = Assets\Shaders\DoTexture.fx
 		Assets\Shaders\DoTransform.fx = Assets\Shaders\DoTransform.fx
+		Assets\Shaders\Standard.fx = Assets\Shaders\Standard.fx
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_HelloCube", "VGP242\03_HelloCube\03_HelloCube.vcxproj", "{3A91A6D3-1B2B-490F-9982-DD1511F68050}"
@@ -48,6 +49,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06_HelloDebug", "VGP242\06_HelloDebug\06_HelloDebug.vcxproj", "{645B5497-DBEE-4A43-9E9E-E91974D111EB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_FinalProject_SolarSystem", "VGP242\07_FinalProject_SolarSystem\07_FinalProject_SolarSystem.vcxproj", "{A513FF86-08FE-4BE6-8F32-DE8933C0105C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP330", "VGP330", "{5E81E41E-2FC1-4DA1-A8A1-AA803ACDBF37}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_HelloLighting", "VGP330\01_HelloLighting\01_HelloLighting.vcxproj", "{A930E845-DD33-41CB-9999-1DB9553303FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +174,14 @@ Global
 		{A513FF86-08FE-4BE6-8F32-DE8933C0105C}.Release|x64.Build.0 = Release|x64
 		{A513FF86-08FE-4BE6-8F32-DE8933C0105C}.Release|x86.ActiveCfg = Release|Win32
 		{A513FF86-08FE-4BE6-8F32-DE8933C0105C}.Release|x86.Build.0 = Release|Win32
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Debug|x64.ActiveCfg = Debug|x64
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Debug|x64.Build.0 = Debug|x64
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Debug|x86.ActiveCfg = Debug|Win32
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Debug|x86.Build.0 = Debug|Win32
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Release|x64.ActiveCfg = Release|x64
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Release|x64.Build.0 = Release|x64
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Release|x86.ActiveCfg = Release|Win32
+		{A930E845-DD33-41CB-9999-1DB9553303FE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,6 +202,7 @@ Global
 		{52D656A2-A2F4-4C54-A3C7-653427BED1E8} = {B003A871-6E32-4B24-819B-12C4D87C8A89}
 		{645B5497-DBEE-4A43-9E9E-E91974D111EB} = {0AEF67E6-3D1C-4AF1-B265-E20BE34129D2}
 		{A513FF86-08FE-4BE6-8F32-DE8933C0105C} = {0AEF67E6-3D1C-4AF1-B265-E20BE34129D2}
+		{A930E845-DD33-41CB-9999-1DB9553303FE} = {5E81E41E-2FC1-4DA1-A8A1-AA803ACDBF37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {435BAF80-54B3-4381-AE77-5E57D16EB4E3}

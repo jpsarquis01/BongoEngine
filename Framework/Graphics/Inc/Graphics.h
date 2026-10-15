@@ -16,3 +16,8 @@
 #include "VertexShader.h"
 #include "ConstantBuffer.h"
 #include "MeshTypes.h"
+#include "RenderObject.h"
+#include "Transform.h"
+#include "Material.h"
+#include "DirectionalLight.h"
+#include "StandardEffect.h"
