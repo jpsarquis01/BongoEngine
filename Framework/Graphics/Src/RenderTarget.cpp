@@ -15,8 +15,9 @@ namespace
 		case RenderTarget::Format::RGBA_U32: return DXGI_FORMAT_R32G32B32A32_UINT;
 		default:
 			ASSERT(false, "RenderTarget: unknown format");
-			return DXGI_FORMAT_UNKNOWN;
+			break;
 		}
+		return DXGI_FORMAT_R8G8B8A8_UNORM;
 	}
 }
 
