@@ -26,14 +26,14 @@ RenderTarget::~RenderTarget()
 	ASSERT(mRenderTargetView == nullptr && mDepthStencilView == nullptr, "RenderTarget: must be terminated");
 }
 
-RenderTarget::Initialize(const std::filesystem::path& fileName)
+void RenderTarget::Initialize(const std::filesystem::path& fileName)
 {
 	ASSERT(false, "RenderTarget: Initialize from file is not implemented yet");
 }
 
-RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
+void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 {
-	D3D11_TEXTURE2D_DESC desc[];
+	D3D11_TEXTURE2D_DESC desc = {};
 	desc.Width = width;
 	desc.Height = height;
 	desc.MipLevels = 1;
@@ -98,7 +98,7 @@ void RenderTarget::BeginRender(Color clearColor)
 	context->ClearRenderTargetView(mRenderTargetView, &clearColor.r);
 	context->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0.0f);
 	context->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
-	context->RSSetScissorRects(1, &mViewport);
+	context->RSSetViewports(1, &mViewport);
 }
 
 void RenderTarget::EndRender()

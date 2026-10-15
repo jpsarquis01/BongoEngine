@@ -5,7 +5,7 @@
 
 namespace BongoEngine::Graphics
 {
-	class RenderTarget
+	class RenderTarget : public Texture
 	{
 	public:
 		enum class Format
