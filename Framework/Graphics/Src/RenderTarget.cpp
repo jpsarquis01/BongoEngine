@@ -79,9 +79,34 @@ RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 
 void RenderTarget::Terminaete()
 {
+	Texture::Terminate();
 
+	SafeRelease(mRenderTargetView);
+	SafeRelease(mDepthStencilView);
 }
 
 void RenderTarget::BeginRender(Color clearColor)
 {
+	auto context = GraphicsSystem::Get()->GetContext();
+
+	// store current settings
+	UINT numViewports = 1;
+	context->OMGetRenderTargets(1, &mOldRenderTargetView, &mOldDepthStencilView);
+	context->RSGetViewports(&numViewports, &mOldViewport);
+
+	// apply render target setting
+	context->ClearRenderTargetView(mRenderTargetView, &clearColor.r);
+	context->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0.0f);
+	context->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
+	context->RSSetScissorRects(1, &mViewport);
+}
+
+void RenderTarget::EndRender()
+{
+	auto context = GraphicsSystem::Get()->GetContext();
+	context->OMSetRenderTargets(1, &mOldRenderTargetView, mOldDepthStencilView);
+	context->RSSetViewports(1, &mOldViewport);
+
+	SafeRelease(mOldRenderTargetView);
+	SafeRelease(mOldDepthStencilView);
 }
