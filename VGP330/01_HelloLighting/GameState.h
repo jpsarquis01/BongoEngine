@@ -10,6 +10,10 @@ public:
 	void Render() override;
 	void DebugUI() override;
 
+	// added in assignment 1 
+	BongoEngine::Graphics::RenderObject mRenderBall;
+	BongoEngine::Graphics::RenderObject mRenderPlane;
+
 private:
 	void UpdateCamera(float deltaTime);
 
@@ -17,6 +21,8 @@ private:
 	BongoEngine::Graphics::DirectionalLight mDirectionalLight;
 	BongoEngine::Graphics::StandardEffect mStandardEffect;
 	BongoEngine::Graphics::StandardEffect mStandardEffectCel;
+
+	BongoEngine::Graphics::RenderTarget mRenderTarget;
 
 	BongoEngine::Graphics::RenderObject mRenderObject;
 	bool mUseCelShading = false;

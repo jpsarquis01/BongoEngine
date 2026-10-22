@@ -46,7 +46,7 @@ void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 	desc.CPUAccessFlags = 0;
 	desc.MiscFlags = 0;
 
-	auto device = GraphicsSystem::Get()->GetDevice();\
+	auto device = GraphicsSystem::Get()->GetDevice();
 	ID3D11Texture2D* texture = nullptr;
 	HRESULT hr = device->CreateTexture2D(&desc, nullptr, &texture);
 	ASSERT(SUCCEEDED(hr), "RenderTarget: Failed to create texture");
@@ -77,7 +77,7 @@ void RenderTarget::Initialize(uint32_t width, uint32_t height, Format format)
 	mViewport.MaxDepth = 1.0f;
 }
 
-void RenderTarget::Terminaete()
+void RenderTarget::Terminate()
 {
 	Texture::Terminate();
 

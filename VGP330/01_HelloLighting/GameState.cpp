@@ -38,10 +38,36 @@ void GameState::Initialize()
 	mStandardEffectCel.Initialize(shaderPath);
 	mStandardEffectCel.SetCamera(mCamera);
 	mStandardEffectCel.SetDirectionalLight(mDirectionalLight);
+
+	// Initialize render target
+	const uint32_t size = 512;
+	mRenderTarget.Initialize(size, size, RenderTarget::Format::RGBA_U32);
+
+	// Created in assignment 1
+	// set up render ball
+	Mesh meshBall = MeshBuilder::CreateSphere(30, 30, 0.5f);
+	mRenderBall.meshBuffer.Initialize(meshBall);
+	TextureManager* tmBall = TextureManager::Get();
+	mRenderBall.diffuseMapId = tmBall->LoadTexture("wood_diffuse.jpg");
+	mRenderBall.specMapId = tmBall->LoadTexture("wood_specular.jpg");
+	mRenderBall.normMapId = tmBall->LoadTexture("wood_normal.jpg");
+	mRenderBall.bumpMapId = tmBall->LoadTexture("wood_bump.jpg");
+	mRenderBall.transform.position = { 2.0f, 0.0f, 0.0f };
+
+	// set up render plane
+	Mesh meshPlane = MeshBuilder::CreatePlane(3, 3, 1.0f);
+	mRenderPlane.meshBuffer.Initialize(meshPlane);
+	TextureManager* tmPlane = TextureManager::Get();
+	mRenderPlane.diffuseMapId = tmPlane->LoadTexture("brick_diffuse.jpg");
+	mRenderPlane.specMapId = tmPlane->LoadTexture("brick_specular.jpg");
+	mRenderPlane.normMapId = tmPlane->LoadTexture("brick_normal.jpg");
+	mRenderPlane.bumpMapId = tmPlane->LoadTexture("brick_specular.jpg");
+	mRenderPlane.transform.position = { -3.0f, 0.0f, 0.0f };
 }
 
 void GameState::Terminate()
 {
+	mRenderTarget.Terminate();
 	mStandardEffectCel.Terminate();
 	mStandardEffect.Terminate();
 	mRenderObject.Terminate();
@@ -62,13 +88,32 @@ void GameState::Render()
 		mStandardEffectCel.Begin();
 			mStandardEffectCel.Render(mRenderObject);
 		mStandardEffectCel.End();
+
+		// Created in assingment 1
+		mStandardEffectCel.Render(mRenderBall);
+		mStandardEffectCel.Render(mRenderPlane);
+		mStandardEffectCel.End();
 	}
 	else
 	{
 		mStandardEffect.Begin();
 			mStandardEffect.Render(mRenderObject);
 		mStandardEffect.End();
+
+		// Created in assignment 1
+		mStandardEffect.Render(mRenderBall);
+		mStandardEffect.Render(mRenderPlane);
+		mStandardEffect.End();
 	}
+
+	// Render Target renderer
+	mRenderTarget.BeginRender();	// Tell gou to render here
+		mStandardEffect.Begin();
+			mStandardEffect.Render(mRenderObject);
+		mStandardEffect.End();
+	mStandardEffect.Render(mRenderObject);
+
+	mRenderTarget.EndRender();
 }
 
 void GameState::DebugUI()
@@ -93,6 +138,14 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular##Material", &mRenderObject.material.specular.r);
 		ImGui::DragFloat("Shininess##Material", &mRenderObject.material.shinines, 0.01f, 0.0f, 1000.0f);
 	}
+
+	ImGui::Image(
+		mRenderTarget.GetRawData(),
+		{ 128, 128 },
+		{ 0, 0 },
+		{ 1, 1 },
+		{ 1, 1, 1, 1 },
+		{ 1, 1, 1, 1 });
 
 	ImGui::Checkbox("UseCelShader", &mUseCelShading);
 	if (mUseCelShading)
