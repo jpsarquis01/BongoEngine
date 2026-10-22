@@ -1,10 +1,2 @@
-﻿  RenderObject.cpp
-  RenderTarget.cpp
-  StandardEffect.cpp
-C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Graphics\Src\RenderTarget.cpp(99,77): warning C4244: 'argument': conversion from 'float' to 'UINT8', possible loss of data
-  (compiling source file '/Src/RenderTarget.cpp')
-  
-  Texture.cpp
-  TextureManager.cpp
-  Generating Code...
+﻿  ModelIO.cpp
   Graphics.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\Graphics.lib

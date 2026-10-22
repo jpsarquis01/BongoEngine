@@ -13,6 +13,8 @@
 #include "TextureManager.h"
 #include "SimpleDraw.h"
 #include "RenderTarget.h"
+#include "Model.h"
+#include "ModelIO.h"
 #include "VertexTypes.h"
 #include "VertexShader.h"
 #include "ConstantBuffer.h"
