@@ -17,6 +17,7 @@
 #include "ModelIO.h"
 #include "VertexTypes.h"
 #include "VertexShader.h"
+#include "ModelManager.h"
 #include "ConstantBuffer.h"
 #include "MeshTypes.h"
 #include "RenderObject.h"

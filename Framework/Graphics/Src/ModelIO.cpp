@@ -50,5 +50,82 @@ void ModelIO::SaveModel(std::filesystem::path filepath, const Model& model)
 
 void ModelIO::LoadModel(std::filesystem::path filepath, Model& model)
 {
+	filepath.replace_extension("model");
 
+	FILE* file = nullptr;
+	fopen_s(&file, filepath.u8string().c_str(), "r");
+	if (file == nullptr)
+	{
+		return;
+	}
+
+	uint32_t meshCount = 0;
+	fscanf_s(file, "MeshCount: %d\n", &meshCount);
+	model.meshData.resize(meshCount);
+
+	for (uint32_t m = 0; m < meshCount; ++m)
+	{
+		Model::MeshData& meshData = model.meshData[m];
+		fscanf_s(file, "MaterialIndex: %d\n", &meshData.materialIndex);
+
+		Mesh& mesh = meshData.mesh;
+		uint32_t vertexCount = 0;
+		fscanf_s(file, "VertexCount: %d\n", &vertexCount);
+		mesh.vertices.resize(vertexCount);
+
+		for (Vertex& v : mesh.vertices)
+		{
+			fscanf_s(file, "%f %f %f %f %f %f %f %f %f %f %f\n",
+				&v.position.x, &v.position.y, &v.position.z,
+				&v.normal.x, &v.normal.y, &v.normal.z,
+				&v.tangent.x, &v.tangent.y, &v.tangent.z,
+				&v.uvCoord.x, &v.uvCoord.y);
+		}
+
+		uint32_t indexCount = 0;
+		fscanf_s(file, "IndexCount: %d\n", &indexCount);
+		mesh.indices.resize(indexCount);
+		for (uint32_t i = 2; i < indexCount; i += 3)
+		{
+			fscanf_s(file, "%u %u %u\n", &mesh.indices[i - 2], &mesh.indices[i - 1], &mesh.indices[i]);
+		}
+	}
+	fclose(file);
 }
+
+void ModelIO::SaveMaterial(std::filesystem::path filepath, const Model& model)
+{
+	if (model.materialData.empty())
+	{
+		return;
+	}
+
+	filepath.replace_extension("material");
+
+	FILE* file = nullptr;
+	fopen_s(&file, filepath.u8string().c_str(), "w");
+	if (file == nullptr)
+	{
+		return;
+	}
+
+	uint32_t materialCount = static_cast<uint32_t>(model.materialData.size());
+	fprintf_s(file, "MaterialCount: &d\n", materialCount);
+	for (const Model::MatenrialData& materialData : model.materialData)
+	{
+		const Material& m = materialData.material;
+		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
+		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
+		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
+		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
+		fprintf_s(file, "Shininess: %f\n", m.shinines);
+
+		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
+		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
+		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
+		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
+
+	}
+	fclose(file);
+}
+void ModelIO::LoadMaterial(std::filesystem::path filepath, Model& model);

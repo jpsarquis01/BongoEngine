@@ -24,6 +24,7 @@ void App::Run(const AppConfig& config)
 	InputSystem::StaticInitialize(handle);
 	GraphicsSystem::StaticInitialize(handle, config.fullScreen);
 	TextureManager::StaticInitialize(L"../../Assets/Textures");
+	ModelManager::StaticInitialize(L"../../Assets/Models");
 	DebugUI::StaticInitialize(handle, false, true);
 	SimpleDraw::StaticsInitialize(config.maxVertexCount);
 	GraphicsSystem::Get()->SetClearColor(Colors::Black);
@@ -81,6 +82,7 @@ void App::Run(const AppConfig& config)
 	InputSystem::StaticTerminate();
 	TextureManager::StaticTerminate();
 	DebugUI::StaticTerminate();	
+	ModelManager::staticTerminate();
 
 
 	// Close the app

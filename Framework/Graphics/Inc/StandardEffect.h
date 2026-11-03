@@ -11,6 +11,7 @@ namespace BongoEngine::Graphics
 {
 	class Camera;
 	class RenderObject;
+	class RenderGroup;
 	
 	class StandardEffect final
 	{
@@ -22,6 +23,7 @@ namespace BongoEngine::Graphics
 		void End();
 
 		void Render(const RenderObject& renderObject);
+		void Render(const RenderGroup& renderGroup);
 
 		void DebugUI();
 
