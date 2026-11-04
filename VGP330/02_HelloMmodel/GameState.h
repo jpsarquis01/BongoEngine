@@ -17,4 +17,6 @@ private:
 	BongoEngine::Graphics::DirectionalLight mDirectionalLight;
 	BongoEngine::Graphics::StandardEffect mStandardEffect;
 	BongoEngine::Graphics::RenderGroup mCharacter;
+	BongoEngine::Graphics::RenderGroup mCharacter2;
+	BongoEngine::Graphics::RenderGroup mCharacter3;
 };

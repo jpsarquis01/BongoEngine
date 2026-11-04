@@ -20,6 +20,15 @@ void GameState::Initialize()
 
 	// Setup render object
 	mCharacter.Initialize(L"Character01/Bongo.model");
+	mCharacter.transform.position = { 0.0f, 0.0f, 0.0f };
+
+	mCharacter2.Initialize(L"Character01/Bongo2.model");
+	mCharacter2.transform.position = { -2.0f, 0.0f, 0.0f };
+
+	mCharacter3.Initialize(L"Character01/Bongo3.model");
+	mCharacter3.transform.position = { 2.0f, 0.0f, 0.0f };
+
+
 
 	// Setup Effect
 	std::filesystem::path shaderPath = L"../../Assets/Shaders/Standard.fx";
@@ -31,6 +40,8 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+	mCharacter3.Terminate();
+	mCharacter2.Terminate();
 	mCharacter.Terminate();
 	mStandardEffect.Terminate();
 }
@@ -47,6 +58,8 @@ void GameState::Render()
 
 	mStandardEffect.Begin();
 	mStandardEffect.Render(mCharacter);
+	mStandardEffect.Render(mCharacter2);
+	mStandardEffect.Render(mCharacter3);
 	mStandardEffect.End();
 
 }
