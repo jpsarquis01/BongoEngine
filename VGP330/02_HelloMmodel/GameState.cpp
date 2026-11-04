@@ -19,7 +19,7 @@ void GameState::Initialize()
 	mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
 	// Setup render object
-	mCharacter.Initialize(L"Character01/Bongo.");
+	mCharacter.Initialize(L"Character01/Bongo.model");
 
 	// Setup Effect
 	std::filesystem::path shaderPath = L"../../Assets/Shaders/Standard.fx";

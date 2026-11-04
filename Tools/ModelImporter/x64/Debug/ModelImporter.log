@@ -1,4 +1,10 @@
-﻿  ModelImporter.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\ModelImporter.exe
+﻿  main.cpp
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
+  (compiling source file 'main.cpp')
+  
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Tools\ModelImporter\main.cpp(35,21): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\Tools\ModelImporter\main.cpp(116,4): warning C4018: '<': signed/unsigned mismatch
+  ModelImporter.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\ModelImporter.exe
   C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\External\assimp-5.2.5\bin\assimp-vc143-mt.dll
   C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\External\assimp-5.2.5\bin\assimp-vc143-mtd.dll
           2 file(s) copied.

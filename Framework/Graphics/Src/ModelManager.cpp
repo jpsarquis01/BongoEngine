@@ -37,15 +37,17 @@ ModelId ModelManager::GetModelId(const std::filesystem::path& filePath)
 }
 ModelId ModelManager::LoadModel(const std::filesystem::path& filePath)
 {
+
     const ModelId& modelId = GetModelId(filePath);
     auto [iter, sucess] = mInventory.insert({ modelId, nullptr });
-    if (sucess)
-    {
-        std::filesystem::path fullPath = mRootDirectory / filePath;
-        auto& modelPtr = iter->second;
-        modelPtr = std::make_unique<Model>();
-        ModelIO::LoadModel(fullPath, *modelPtr);
-    }
+	if (sucess)
+	{
+		std::filesystem::path fullPath = mRootDirectory / filePath;
+		auto& modelPtr = iter->second;
+		modelPtr = std::make_unique<Model>();
+		ModelIO::LoadModel(fullPath, *modelPtr);
+		ModelIO::LoadMaterial(fullPath, *modelPtr);
+	}
     return modelId;
 }
 

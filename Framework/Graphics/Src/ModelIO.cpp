@@ -110,22 +110,62 @@ void ModelIO::SaveMaterial(std::filesystem::path filepath, const Model& model)
 	}
 
 	uint32_t materialCount = static_cast<uint32_t>(model.materialData.size());
-	fprintf_s(file, "MaterialCount: &d\n", materialCount);
+	fprintf_s(file, "MaterialCount: %d\n", materialCount);
 	for (const Model::MatenrialData& materialData : model.materialData)
 	{
 		const Material& m = materialData.material;
 		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
-		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
-		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
-		fprintf_s(file, "%f %f %f %f\n", m.emissive.r, m.emissive.g, m.emissive.b, m.emissive.a);
+		fprintf_s(file, "%f %f %f %f\n", m.ambient.r, m.ambient.g, m.ambient.b, m.ambient.a);
+		fprintf_s(file, "%f %f %f %f\n", m.diffuse.r, m.diffuse.g, m.diffuse.b, m.diffuse.a);
+		fprintf_s(file, "%f %f %f %f\n", m.specular.r, m.specular.g, m.specular.b, m.specular.a);
 		fprintf_s(file, "Shininess: %f\n", m.shinines);
 
 		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
-		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
-		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
-		fprintf_s(file, "%s\n", materialData.diffuseName.empty() ? "<none>" : materialData.diffuseName.c_str());
-
+		fprintf_s(file, "%s\n", materialData.specName.empty() ? "<none>" : materialData.specName.c_str());
+		fprintf_s(file, "%s\n", materialData.normName.empty() ? "<none>" : materialData.normName.c_str());
+		fprintf_s(file, "%s\n", materialData.bumpName.empty() ? "<none>" : materialData.bumpName.c_str());
 	}
 	fclose(file);
 }
-void ModelIO::LoadMaterial(std::filesystem::path filepath, Model& model);
+
+void ModelIO::LoadMaterial(std::filesystem::path filepath, Model& model)
+{
+	filepath.replace_extension("material");
+
+	FILE* file = nullptr;
+	fopen_s(&file, filepath.u8string().c_str(), "r");
+	if (file == nullptr)
+	{
+		return;
+	}
+
+	// reads a texture name, stores full path next to the model file
+	auto TryReadTextureName = [&](auto& fileName)
+		{
+			char buffer[MAX_PATH];
+			fscanf_s(file, "%s\n", buffer, (uint32_t)sizeof(buffer));
+			if (strcmp(buffer, "<none>") != 0)
+			{
+				fileName = filepath.replace_filename(buffer).string();
+			}
+		};
+
+	uint32_t materialCount = 0;
+	fscanf_s(file, "MaterialCount: %d\n", &materialCount);
+	model.materialData.resize(materialCount);
+	for (Model::MatenrialData& materialData : model.materialData)
+	{
+		Material& m = materialData.material;
+		fscanf_s(file, "%f %f %f %f\n", &m.emissive.r, &m.emissive.g, &m.emissive.b, &m.emissive.a);
+		fscanf_s(file, "%f %f %f %f\n", &m.ambient.r, &m.ambient.g, &m.ambient.b, &m.ambient.a);
+		fscanf_s(file, "%f %f %f %f\n", &m.diffuse.r, &m.diffuse.g, &m.diffuse.b, &m.diffuse.a);
+		fscanf_s(file, "%f %f %f %f\n", &m.specular.r, &m.specular.g, &m.specular.b, &m.specular.a);
+		fscanf_s(file, "Shininess: %f\n", &m.shinines);
+
+		TryReadTextureName(materialData.diffuseName);
+		TryReadTextureName(materialData.specName);
+		TryReadTextureName(materialData.normName);
+		TryReadTextureName(materialData.bumpName);
+	}
+	fclose(file);
+}

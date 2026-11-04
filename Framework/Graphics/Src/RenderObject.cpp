@@ -24,13 +24,28 @@ void RenderGroup::Initialize(const::std::filesystem::path& modelFilePath)
 
 void RenderGroup::Initialize(const Model& model)
 {
+	auto TryLoadTexture = [](const auto& textureName)->TextureId
+		{
+			if (textureName.empty())
+			{
+				return 0;
+			}
+			return TextureManager::Get()->LoadTexture(textureName, false); // full path already
+		};
+
 	for (const Model::MeshData& meshData : model.meshData)
 	{
 		RenderObject& renderObject = renderObjects.emplace_back();
 		renderObject.meshBuffer.Initialize(meshData.mesh);
 		if (meshData.materialIndex < model.materialData.size())
 		{
-			// later
+			const Model::MatenrialData& materialData = model.materialData[meshData.materialIndex];
+			renderObject.material = materialData.material;
+
+			renderObject.diffuseMapId = TryLoadTexture(materialData.diffuseName);
+			renderObject.specMapId = TryLoadTexture(materialData.specName);
+			renderObject.normMapId = TryLoadTexture(materialData.normName);
+			renderObject.bumpMapId = TryLoadTexture(materialData.bumpName);
 		}
 	}
 }

@@ -77,7 +77,7 @@ void ExportEmbeddedTexture(const aiTexture* texture, const Arguments& args, cons
 	fullFileName += fileName.filename().u8string();
 
 	FILE* file = nullptr;
-	auto err = fopen_s(&file, fullFileName.c_str(), "w");
+	auto err = fopen_s(&file, fullFileName.c_str(), "wb");
 	if (err != 0 || file == nullptr)
 	{
 		printf("Error: failed to open file %s for saving\n", fullFileName.c_str());
@@ -274,6 +274,8 @@ int main(int argc, char* argv[])
 	// Save all the data
 	printf("Saving Model...\n");
 	ModelIO::SaveModel(args.outputFileName, model);
+	printf("Saving Material...\n");
+	ModelIO::SaveMaterial(args.outputFileName, model);
 	printf("Import Complete\n");
 
 	return 0;
