@@ -34,5 +34,8 @@ namespace BongoEngine::Graphics
 
 		// sky sphere
 		static MeshPX CreateSkySpherePX(int slices, int rings, float radius);
+
+		// screen quad
+		static MeshPX CreateScreenQuadPX();
 	};
 }

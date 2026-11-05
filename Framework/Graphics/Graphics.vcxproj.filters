@@ -86,6 +86,7 @@
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\ModelManager.h" />
+    <ClInclude Include="Inc\PostProcessingEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -138,5 +139,6 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\ModelManager.cpp" />
+    <ClCompile Include="Src\PostProcessingEffect.cpp" />
   </ItemGroup>
 </Project>

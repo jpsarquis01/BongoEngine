@@ -23,5 +23,6 @@
 #include "RenderObject.h"
 #include "Transform.h"
 #include "Material.h"
+#include "PostProcessingEffect.h"
 #include "DirectionalLight.h"
 #include "StandardEffect.h"

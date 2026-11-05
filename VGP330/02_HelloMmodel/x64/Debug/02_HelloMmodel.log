@@ -1,5 +1,1 @@
-﻿  GameState.cpp
-D:\LaSalle_2yr\6th Tri\BongoEngine\Framework\Math\Inc\Constants.h(5,27): warning C4305: 'initializing': truncation from 'double' to 'const float'
-  (compiling source file 'GameState.cpp')
-  
-  02_HelloMmodel.vcxproj -> D:\LaSalle_2yr\6th Tri\BongoEngine\x64\Debug\02_HelloMmodel.exe
+﻿  02_HelloMmodel.vcxproj -> C:\LaSalle 2Year\6th Tri\3D GraphicsProgramming\BongoEngine\x64\Debug\02_HelloMmodel.exe
