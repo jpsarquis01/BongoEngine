@@ -12,6 +12,7 @@ namespace BongoEngine::Graphics
 	class Camera;
 	class RenderObject;
 	class RenderGroup;
+	class Texture;
 	
 	class StandardEffect final
 	{
@@ -29,6 +30,8 @@ namespace BongoEngine::Graphics
 
 		void SetCamera(const Camera& camera);
 		void SetDirectionalLight(const DirectionalLight& directionalLight);
+		void SetShadowMap(const Texture& shadowMap);
+		void SetLightCamera(const Camera& lightCamera);
 
 
 	private:
@@ -36,6 +39,7 @@ namespace BongoEngine::Graphics
 		{
 			Math::Matrix4 wvp;			// world view projection matrix for ndc space
 			Math::Matrix4 world;		// world matrix for transforming normals
+			Math::Matrix4 lwvp;			// world view projection matrix from the light
 			Math::Vector3 viewPosition; // camera position for specular lighting
 			float padding = 0.0f;		// padding to make the struct 16 byte aligned
 		};
@@ -46,8 +50,10 @@ namespace BongoEngine::Graphics
 			int useSpecMap = 1;
 			int useNormMap = 1;
 			int useBumpMap = 1;
+			int useShadowMap = 1;
 			float bumpWeight = 0.1f;
-			float padding[3] = { 0.0f }; 
+			float depthBias = 0.00003f;
+			float padding = 0.0f;
 		};
 
 		//[][][][]
@@ -73,6 +79,8 @@ namespace BongoEngine::Graphics
 
 		const Camera* mCamera = nullptr;
 		const DirectionalLight* mDirectionalLight = nullptr;
+		const Texture* mShadowMap = nullptr;
+		const Camera* mLightCamera = nullptr;
 		SettingsData mSettingsData;
 	};
 }

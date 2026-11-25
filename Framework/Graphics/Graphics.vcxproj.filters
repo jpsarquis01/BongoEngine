@@ -87,6 +87,8 @@
     </ClInclude>
     <ClInclude Include="Inc\ModelManager.h" />
     <ClInclude Include="Inc\PostProcessingEffect.h" />
+    <ClInclude Include="Inc\BlendState.h" />
+    <ClInclude Include="Inc\ShadowEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -140,5 +142,7 @@
     </ClCompile>
     <ClCompile Include="Src\ModelManager.cpp" />
     <ClCompile Include="Src\PostProcessingEffect.cpp" />
+    <ClCompile Include="Src\BlendState.cpp" />
+    <ClCompile Include="Src\ShadowEffect.cpp" />
   </ItemGroup>
 </Project>

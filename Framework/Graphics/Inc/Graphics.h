@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BlendState.h"
 #include "Camera.h"
 #include "Common.h"
 #include "Color.h"	
@@ -26,3 +27,4 @@
 #include "PostProcessingEffect.h"
 #include "DirectionalLight.h"
 #include "StandardEffect.h"
+#include "ShadowEffect.h"

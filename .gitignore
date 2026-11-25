@@ -40,4 +40,7 @@
 */Debug/
 */Release/
 
+# Visual Studio build output (any depth)
+x64/
+
 !/External/assimp-5.2.5/**

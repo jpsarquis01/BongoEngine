@@ -5,7 +5,7 @@ using namespace BongoEngine;
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	AppConfig config;
-	config.appName = L"Hello Model";
+	config.appName = L"Hello Post Processing";
 	config.maxVertexCount = 1000000;
 
 	App& myApp = MainApp();
