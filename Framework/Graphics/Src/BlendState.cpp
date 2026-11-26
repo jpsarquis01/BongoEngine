@@ -52,7 +52,32 @@ BlendState::~BlendState()
 
 void BlendState::Initialize(Mode mode)
 {
-	// TODO next class
+	const D3D11_BLEND srcBlend = GetSrcBlend(mode);
+	const D3D11_BLEND destBlend = GetDestBlend(mode);
+
+	D3D11_BLEND_DESC desc{};
+	desc.RenderTarget[0].BlendEnable = (srcBlend != D3D11_BLEND_ONE) || (destBlend != D3D11_BLEND_ZERO);
+	desc.RenderTarget[0].SrcBlend = srcBlend;
+	desc.RenderTarget[0].DestBlend = destBlend;
+	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlendAlpha = srcBlend;
+	desc.RenderTarget[0].DestBlendAlpha = destBlend;
+	desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	auto device = GraphicsSystem::Get()->GetDevice();
+	HRESULT hr = device->CreateBlendState(&desc, &mBlendState);
+	ASSERT(SUCCEEDED(hr), "BlendState: failed to create blend state");
+
+	// transparent objects still depth test but don't write depth
+	D3D11_DEPTH_STENCIL_DESC depthDesc{};
+	depthDesc.DepthEnable = TRUE;
+	depthDesc.DepthWriteMask = (mode == Mode::Opaque) ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
+	depthDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	depthDesc.StencilEnable = FALSE;
+
+	hr = device->CreateDepthStencilState(&depthDesc, &mDepthStencilState);
+	ASSERT(SUCCEEDED(hr), "BlendState: failed to create depth stencil state");
 }
 
 void BlendState::Terminate()

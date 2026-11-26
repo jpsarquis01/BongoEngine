@@ -19,7 +19,7 @@ void ShadowEffect::Initialize()
 	mLightCamera.SetFarPlane(2000.0f);
 
 	constexpr uint32_t depthMapResolution = 4096;
-	mDepthMapRenderTarget.Initialize(depthMapResolution, depthMapResolution, RenderTarget::Format::RGBA_U32);
+	mDepthMapRenderTarget.Initialize(depthMapResolution, depthMapResolution, RenderTarget::Format::RGBA_F32);
 }
 
 void ShadowEffect::Terminate()

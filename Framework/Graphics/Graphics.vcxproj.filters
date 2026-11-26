@@ -89,6 +89,8 @@
     <ClInclude Include="Inc\PostProcessingEffect.h" />
     <ClInclude Include="Inc\BlendState.h" />
     <ClInclude Include="Inc\ShadowEffect.h" />
+    <ClInclude Include="Inc\Terrain.h" />
+    <ClInclude Include="Inc\TerrainEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -144,5 +146,7 @@
     <ClCompile Include="Src\PostProcessingEffect.cpp" />
     <ClCompile Include="Src\BlendState.cpp" />
     <ClCompile Include="Src\ShadowEffect.cpp" />
+    <ClCompile Include="Src\Terrain.cpp" />
+    <ClCompile Include="Src\TerrainEffect.cpp" />
   </ItemGroup>
 </Project>

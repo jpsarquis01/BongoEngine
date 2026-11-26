@@ -1,8 +1,8 @@
 #pragma once
 
-#include "BlendState.h"
 #include "Camera.h"
 #include "Common.h"
+#include "BlendState.h"
 #include "Color.h"	
 #include "GraphicsSystem.h"
 #include "MeshBuffer.h"
@@ -28,3 +28,5 @@
 #include "DirectionalLight.h"
 #include "StandardEffect.h"
 #include "ShadowEffect.h"
+#include "Terrain.h"
+#include "TerrainEffect.h"
